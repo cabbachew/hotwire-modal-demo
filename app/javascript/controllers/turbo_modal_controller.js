@@ -9,4 +9,10 @@ export default class extends Controller {
     this.element.parentElement.removeAttribute("src")
     this.element.remove()
   }
+
+  submitEnd(e) {
+    if (e.detail.success) {
+      this.hideModal()
+    }
+  }
 }
