@@ -25,6 +25,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        format.turbo_stream { render turbo_stream: turbo_stream.prepend("posts", partial: "posts/post", locals: { post: @post }) }
         format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
@@ -38,6 +39,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
+        format.turbo_stream { render turbo_stream: turbo_stream.update(@post, partial: "posts/post", locals: { post: @post }) }
         format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else
